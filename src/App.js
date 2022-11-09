@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import Map from "./Map";
+import Weather from "./Weather";
+import React, { useEffect, useState } from "react";
 import './App.css';
 
 function App() {
+  const [isMarkerShown, setIsMarkerShown] = useState(false);
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+
+  useEffect(() => {
+    if (!isMarkerShown) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+      });
+    }
+  }, [isMarkerShown]);
+
+  function onMarkerClick(lat, lng) {
+    setIsMarkerShown(true);
+    setLatitude(lat);
+    setLongitude(lng);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Map
+          isMarkerShown={isMarkerShown}
+          onMarkerClick={onMarkerClick}
+          latitude={latitude}
+          longitude={longitude}
+        />
+      <Weather lat={latitude} lgn={longitude} />
     </div>
   );
 }

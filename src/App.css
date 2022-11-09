@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+* {
+  box-sizing: border-box;
+}
+
+.weatherCard {
+  position: fixed;
+  bottom: 20%;
+  right: 20%;
+  width: 50vw;
+  height: 20vh;
+  background-color: white;
+}
+
+.map-container {
+  width: 100%;
+  height: 100vh;
+}
